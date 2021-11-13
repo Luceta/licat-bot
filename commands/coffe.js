@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
+
 module.exports = {
-  name: "라이캣",
-  description: "lion cat bot의 프로필을 보여줍니다.",
+  name: "커피",
+  description: "커피짤을 보여줍니다.",
   execute(message) {
     const embed = new Discord.MessageEmbed()
       .setTitle("Licat bot")
