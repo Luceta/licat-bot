@@ -10,11 +10,12 @@ const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
 
-  
+const allCommands = [];
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
+  allCommands.push(command.name);
 }
 
 client.on('ready', () => {
@@ -24,7 +25,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   answerFunnyWord(msg);
-  
+
   if (msg.author.id === client.user.id) return
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
   const args = msg.content.slice(prefix.length).trim().split(/ +/);
@@ -34,8 +35,11 @@ client.on('message', msg => {
   if (!client.commands.has(command)) return;
 
   try {
-    
-    client.commands.get(command).execute(msg, args,client);
+    const commandObj = client.commands.get(command);
+    if (commandObj.name === "라이캣") {
+      return client.commands.get(command).execute(msg, allCommands);
+    }
+    client.commands.get(command).execute(msg,args);
   } catch (error) {
     console.error(error);
   }
