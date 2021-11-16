@@ -13,14 +13,6 @@
   "token": your Token,
 }` 로 세팅해준다.
 
-## Info
-
-The clock supports three modes: `Normal` , `Vibration`, `Night`
-`Normal` alerts by sound and `Vibration` mode by vibration.
-`Night` alerts by sound when you set urgent Mode.
-
-The Alarm supports three modes: `Normal` , `Urgent`
-
 ## Usage
 
 1. npm install in your folder.
