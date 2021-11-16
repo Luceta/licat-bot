@@ -1,4 +1,4 @@
-# Alarm Clock - Do not late!!
+# LICAT - discord bot
 
 ## Introduction
 
