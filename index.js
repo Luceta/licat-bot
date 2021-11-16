@@ -2,7 +2,10 @@ const fs = require("fs");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const { prefix, token } = require("./config.json");
-const {answerFunnyWord} = require("./answer/word");
+const { answerFunnyWord } = require("./answer/word");
+
+const axios = require('axios');
+const cheerio = require("cheerio");
 
 client.commands = new Discord.Collection();
 
