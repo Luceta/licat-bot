@@ -1,65 +1,78 @@
 const Discord = require("discord.js");
 
-const answerFunnyWord = (msg) => {
-  const check =
-    msg.content.includes("신나") ||
-    msg.content.includes("좋아") ||
-    msg.content.includes("최고");
-  const lifeOfTheParty = msg.content.includes("제섭");
-  const omg =
-    msg.content.includes("오 마이갓") ||
-    msg.content.includes("킹") ||
-    msg.content.includes("omg");
-  const stop = msg.content.includes("멈춰");
-  const coffee = msg.content.includes("커피");
-  const lunch = msg.content.includes("맛점");
-  const cheerUp = msg.content.includes("파이팅");
+const database = [
 
+  {
+    wordArr: [ '신나', '좋아', '최고' ],
+    title: '무야~ 호~',
+    image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2021/11/12/110217903.2.jpg'
+  },
+
+  {
+    wordArr: [ '오 마이갓', '킹', 'omg' ],
+    title: '',
+    image: 'https://thumbs.gfycat.com/YellowishNarrowFoal-size_restricted.gif'
+  },
+
+  {
+    wordArr: [ '멈춰' ],
+    title: '',
+    image: 'https://c.tenor.com/BUFmvH6RjgUAAAAM/%EB%A9%88%EC%B6%B0-stop.gif'
+  },
+
+  {
+    wordArr: [ '커피' ],
+    title: '',
+    image: 'https://cdn.discordapp.com/attachments/903526029077929984/909098394780315718/zzal.gif'
+  },
+
+// {
+//   wordArr: [ '제섭' ],
+//   title: '',
+//   image: 'https://c.tenor.com/Utfm0NszTAcAAAAM/%EA%B5%B0%EC%B9%A8.gif'
+// },
+// 
+// {
+//   wordArr: [ '맛점' ],
+//   title: '맛점하구 있다가 만나요!',
+//   image: 'https://c.tenor.com/fbRMi1PLNrwAAAAM/winnie-the-pooh-lunch-time.gif'
+// },
+// 
+// {
+//   wordArr: [ '화이팅' ],
+//   title: '',
+//   image: ''
+// }
+
+];
+
+// 접두사 종류
+// 접두사 없이도 메시지가 나오게 하려면 공백문자 ''을 추가
+const prefixArr = [ '!', '#' ];
+
+// wordArr의 단어들을 각각의 접두사를 붙인 형태로 바꿔줌
+const attachPrefix = (wordArr) => {
+  const prefixedWordArr = [];
+  prefixArr.forEach(prefix => {
+    wordArr.forEach(word => {
+      prefixedWordArr.push(prefix + word);
+    });
+  });
+  return prefixedWordArr;
+};
+
+const registerWord = (msg, { wordArr, title, image }) => {
+  const check = attachPrefix(wordArr).some(word => msg.content.includes(word));
   if (check) {
-    const embed = new Discord.MessageEmbed();
-    embed.setTitle("무야~ 호~");
-    embed.setImage(
-      "https://dimg.donga.com/wps/NEWS/IMAGE/2021/11/12/110217903.2.jpg"
-    );
-    return msg.channel.send(embed);
-  }
-
-  if (lifeOfTheParty) {
-    const embed = new Discord.MessageEmbed().setImage(
-      "https://c.tenor.com/Utfm0NszTAcAAAAM/%EA%B5%B0%EC%B9%A8.gif"
-    );
-    return msg.channel.send(embed);
-  }
-
-  if (omg) {
-    const embed = new Discord.MessageEmbed().setImage(
-      "https://thumbs.gfycat.com/YellowishNarrowFoal-size_restricted.gif"
-    );
-    return msg.channel.send(embed);
-  }
-  if (stop) {
-    const embed = new Discord.MessageEmbed().setImage(
-      "https://c.tenor.com/BUFmvH6RjgUAAAAM/%EB%A9%88%EC%B6%B0-stop.gif"
-    );
-    return msg.channel.send(embed);
-  }
-
-  if (coffee) {
-    const embed = new Discord.MessageEmbed().setImage(
-      "https://cdn.discordapp.com/attachments/903526029077929984/909098394780315718/zzal.gif"
-    );
-    return msg.channel.send(embed);
-  }
-
-  if (lunch) {
-    const client = msg.author;
     const embed = new Discord.MessageEmbed()
-      .setTitle("맛점하구 있다가 만나요!")
-      .setImage(
-        "https://c.tenor.com/fbRMi1PLNrwAAAAM/winnie-the-pooh-lunch-time.gif"
-      );
-    return msg.channel.send(embed);
+      .setTitle(title)
+      .setImage(image);
+    msg.channel.send(embed);
   }
+};
+
+const answerFunnyWord = (msg) => {
+  database.forEach(doc => registerWord(msg, doc));
 };
 
 exports.answerFunnyWord = answerFunnyWord;
