@@ -61,7 +61,7 @@ const attachPrefix = (wordArr) => {
   return prefixedWordArr;
 };
 
-const registerWord = (msg, { wordArr, title, image }) => {
+const sendMessage = (msg, { wordArr, title, image }) => {
   const check = attachPrefix(wordArr).some(word => msg.content.includes(word));
   if (check) {
     const embed = new Discord.MessageEmbed()
@@ -72,7 +72,7 @@ const registerWord = (msg, { wordArr, title, image }) => {
 };
 
 const answerFunnyWord = (msg) => {
-  database.forEach(doc => registerWord(msg, doc));
+  database.forEach(doc => sendMessage(msg, doc));
 };
 
 exports.answerFunnyWord = answerFunnyWord;
