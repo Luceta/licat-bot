@@ -19,6 +19,7 @@ module.exports = {
         { name: '!줌링크', value: '줌 링크를 안내해줍니다.', inline: true },
         { name: '!큐알', value: '큐알 코드를 안내해줍니다.', inline: true },
         { name: '!강의일정', value: '강의 일정을 안내해줍니다.', inline: true },
+        { name: '!단어', value: '라이캣이 반응하는 단어 목록을 안내해줍니다.', inline: true },
     )
     .setTimestamp(new Date().toLocaleDateString('en-us'))
     return message.channel.send(embed);
