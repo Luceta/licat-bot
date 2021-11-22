@@ -48,14 +48,8 @@ const answerFunnyWord = (msg) => {
   
   ];
 
-  // 접두사 종류
-  // 접두사 없이도 메시지가 나오게 하려면 공백문자 ""을 추가
-  const prefixArr = [ "!", "#" ]; 
-
   const sendMessage = (msg, { wordArr, title, image }) => {
-    const check = wordArr.some(word => {
-      return prefixArr.some(prefix => msg.includes(prefix + word));
-    });
+    const check = wordArr.some(word => msg.includes(word));
     if (check) {
       const embed = new Discord.MessageEmbed()
         .setTitle(title)
